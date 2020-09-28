@@ -16,7 +16,6 @@ const checkSession = () => {
   return new Promise((resolve, reject) => {
     getCookie().then((result) => {
       if (result) {
-        console.log(result);
         let headers = new Headers({
           cookie: 'ASP.NET_SessionId=' + result,
         });

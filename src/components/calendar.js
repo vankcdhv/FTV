@@ -50,37 +50,45 @@ export default class Calendar extends Component {
   }
 
   componentDidMount() {
-    checkSession()
-      .then((response) => {
-        this.getData('cookie')
-          .then((result) => {
-            let headers = new Headers({
-              cookie: 'ASP.NET_SessionId=' + this.props.route.params.cookie,
-            });
-
-            Get('https://test-fap-api.herokuapp.com/fap/timetable', headers)
-              .then((result) => {
-                this.processData(result);
-              })
-              .catch((reason) => {
-                console.log(reason);
-                if (reason.code === 'TIME_OUT') {
-                  this.props.navigation.navigate('Login');
-                }
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      console.log('focus calendar screen');
+      this.setState({isLoading: true});
+      checkSession()
+        .then((response) => {
+          this.getData('cookie')
+            .then((result) => {
+              let headers = new Headers({
+                cookie: 'ASP.NET_SessionId=' + result,
               });
-          })
-          .catch((reason) => {
-            console.log(reason);
-          });
-      })
-      .catch((reason) => {
-        if (
-          reason.code &&
-          (reason.code === 'TIME_OUT' || reason.code === 'NOT_FOUND')
-        ) {
-          this.props.navigation.navigate('Login');
-        }
-      });
+
+              Get('https://test-fap-api.herokuapp.com/fap/timetable', headers)
+                .then((result) => {
+                  this.processData(result);
+                })
+                .catch((reason) => {
+                  console.log(reason);
+                  if (reason.code === 'TIME_OUT') {
+                    this.props.navigation.navigate('Login');
+                  }
+                });
+            })
+            .catch((reason) => {
+              console.log(reason);
+            });
+        })
+        .catch((reason) => {
+          if (
+            reason.code &&
+            (reason.code === 'TIME_OUT' || reason.code === 'NOT_FOUND')
+          ) {
+            this.props.navigation.navigate('Login');
+          }
+        });
+    });
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   onPressDayInWeek(day) {

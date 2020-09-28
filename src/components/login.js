@@ -34,7 +34,10 @@ class LoginScreen extends Component {
 
   _checkNeededCookies = () => {
     const {cookies, webViewUrl} = this.state;
-    if (webViewUrl === 'http://fap.fpt.edu.vn/Student.aspx') {
+    if (
+      webViewUrl === 'http://fap.fpt.edu.vn/Student.aspx' ||
+      webViewUrl === 'http://fap.fpt.edu.vn/Thongbao.aspx'
+    ) {
       if (cookies['ASP.NET_SessionId']) {
         this.storeData(cookies['ASP.NET_SessionId'].value);
         this.props.navigation.navigate(this.props.route.params.before, {
@@ -70,6 +73,7 @@ class LoginScreen extends Component {
           onMessage={this._onMessage}
           injectedJavaScript={jsCode}
           javaScriptEnabled={true}
+          domStorageEnabled={false}
         />
       </View>
     );
