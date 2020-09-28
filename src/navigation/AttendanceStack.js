@@ -2,21 +2,25 @@ import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from '../components/login';
-import CalendarScreen from '../components/calendar';
+import AttendanceScreen from '../components/attendance';
 
 const Stack = createStackNavigator();
 const CalendarStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{title: 'Login', headerShown: false}}
+        name="Attendance"
+        component={AttendanceScreen}
+        options={{title: 'Điểm danh', headerShown: false}}
       />
       <Stack.Screen
-        name="Calendar"
-        component={CalendarScreen}
-        options={{title: 'Thời khóa biểu', headerShown: false}}
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: 'Đăng nhập',
+          headerShown: false,
+        }}
+        initialParams={{before: 'Attendance'}}
       />
     </Stack.Navigator>
   );

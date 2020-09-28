@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {WebView} from 'react-native-webview';
 import CookieManager from '@react-native-community/cookies';
 class LoginScreen extends Component {
@@ -13,6 +14,16 @@ class LoginScreen extends Component {
     super(props);
   }
 
+  storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem('cookie', value);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  };
+
   onNavigationStateChange = (webViewState: {url: string}) => {
     const {url} = webViewState;
     // console.log(url);
@@ -23,11 +34,10 @@ class LoginScreen extends Component {
 
   _checkNeededCookies = () => {
     const {cookies, webViewUrl} = this.state;
-
     if (webViewUrl === 'http://fap.fpt.edu.vn/Student.aspx') {
       if (cookies['ASP.NET_SessionId']) {
-        console.log(cookies['ASP.NET_SessionId'].value);
-        this.props.navigation.navigate('Calendar', {
+        this.storeData(cookies['ASP.NET_SessionId'].value);
+        this.props.navigation.navigate(this.props.route.params.before, {
           cookie: cookies['ASP.NET_SessionId'].value,
         });
       }

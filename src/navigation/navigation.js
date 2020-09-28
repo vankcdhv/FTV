@@ -4,9 +4,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import CalendarStack from '../navigation/CalendarStack';
-import MarkStack from '../navigation/MarkStack';
-import AttendanceStack from '../navigation/AttendanceStack';
+import CalendarStack from './CalendarStack';
+import HomeStack from './HomeStack';
+import MarkStack from './MarkStack';
+import AttendanceStack from './AttendanceStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,11 +15,21 @@ export default function Navigation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Calendar"
+        initialRouteName="Home"
         tabBarOptions={{
           activeTintColor: 'red',
           activeBackgroundColor: 'white',
         }}>
+        <Tab.Screen
+          name="Home"
+          component={HomeStack}
+          options={{
+            title: 'Home',
+            tabBarIcon: ({color, size}) => (
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            ),
+          }}
+        />
         <Tab.Screen
           name="Calendar"
           component={CalendarStack}

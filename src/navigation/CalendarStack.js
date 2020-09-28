@@ -9,14 +9,18 @@ const CalendarStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{title: 'Login', headerShown: false}}
-      />
-      <Stack.Screen
         name="Calendar"
         component={CalendarScreen}
         options={{title: 'Thời khóa biểu', headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: 'Đăng nhập',
+          headerShown: false,
+        }}
+        initialParams={{before: 'Calendar'}}
       />
     </Stack.Navigator>
   );

@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Get} from '../common/request';
+import {checkSession} from '../common/utils';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -21,24 +23,17 @@ export default class Calendar extends Component {
     };
   }
 
-  keepSession() {
-    fetch('https://test-fap-api.herokuapp.com/fap/keep', {
-      method: 'GET',
-      headers: new Headers({
-        cookie: 'ASP.NET_SessionId=' + this.props.route.params.cookie,
-      }),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        if (json.status && json.status === 'done') {
-          this.setState({keepStatus: true});
-        } else {
-          this.props.navigation.navigate('Login');
-        }
-      })
-      .catch((error) => console.error(error));
-  }
+  getData = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        return value;
+      }
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  };
 
   processData(data) {
     let timetable = [];
@@ -55,16 +50,34 @@ export default class Calendar extends Component {
   }
 
   componentDidMount() {
-    let headers = new Headers({
-      cookie: 'ASP.NET_SessionId=' + this.props.route.params.cookie,
-    });
-    Get('https://test-fap-api.herokuapp.com/fap/timetable', headers)
-      .then((result) => {
-        this.processData(result);
+    checkSession()
+      .then((response) => {
+        this.getData('cookie')
+          .then((result) => {
+            let headers = new Headers({
+              cookie: 'ASP.NET_SessionId=' + this.props.route.params.cookie,
+            });
+
+            Get('https://test-fap-api.herokuapp.com/fap/timetable', headers)
+              .then((result) => {
+                this.processData(result);
+              })
+              .catch((reason) => {
+                console.log(reason);
+                if (reason.code === 'TIME_OUT') {
+                  this.props.navigation.navigate('Login');
+                }
+              });
+          })
+          .catch((reason) => {
+            console.log(reason);
+          });
       })
       .catch((reason) => {
-        console.log(reason);
-        if (reason.code === 'TIME_OUT') {
+        if (
+          reason.code &&
+          (reason.code === 'TIME_OUT' || reason.code === 'NOT_FOUND')
+        ) {
           this.props.navigation.navigate('Login');
         }
       });
@@ -147,14 +160,6 @@ export default class Calendar extends Component {
               }}
             />
           )}
-        </View>
-        <View>
-          <Button
-            title="Keep"
-            onPress={() => {
-              this.keepSession();
-            }}
-          />
         </View>
       </View>
     );
