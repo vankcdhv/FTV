@@ -27,7 +27,7 @@ class LoginScreen extends Component {
     if (webViewUrl === 'http://fap.fpt.edu.vn/Student.aspx') {
       if (cookies['ASP.NET_SessionId']) {
         console.log(cookies['ASP.NET_SessionId'].value);
-        this.props.navigation.navigate('Home', {
+        this.props.navigation.navigate('Calendar', {
           cookie: cookies['ASP.NET_SessionId'].value,
         });
       }

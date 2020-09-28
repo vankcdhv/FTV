@@ -12,6 +12,8 @@ target 'FTV' do
 
   pod 'react-native-cookies', :path => '../node_modules/@react-native-community/cookies'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'FTVTests' do
     inherit! :complete
     # Pods for testing

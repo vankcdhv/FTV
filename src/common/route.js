@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import App from '../../App';
 import LoginScreen from '../components/login';
-import Home from '../components/home';
+import Home from '../components/calendar';
 
 const Stack = createStackNavigator();
 const Route = () => {
