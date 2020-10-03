@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button, Alert} from 'react-native';
+import {View, Button} from 'react-native';
 import {checkSession} from '../common/utils';
 import {Get} from '../common/request';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -68,7 +68,7 @@ export default class Home extends Component {
         cookie: 'ASP.NET_SessionId=' + result,
       });
       Get('https://test-fap-api.herokuapp.com/fap/keep', headers)
-        .then((result) => {
+        .then((data) => {
           this.setState({keepSession: true});
         })
         .catch((reason) => {
@@ -78,7 +78,7 @@ export default class Home extends Component {
             reason.code &&
             (reason.code === 'TIME_OUT' || reason.code === 'NOT_FOUND')
           ) {
-            this.props.navigation.navigate('Login');
+            this.logout();
           }
         })
         .catch((reason) => {
@@ -89,7 +89,7 @@ export default class Home extends Component {
 
   logout() {
     CookieManager.clearAll().then((res) => {
-      this.clearAppData().then((res) => {
+      this.clearAppData().then((response) => {
         this.props.navigation.navigate('Login');
       });
     });

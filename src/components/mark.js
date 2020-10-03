@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import {checkSession} from '../common/utils';
+import * as Const from '../common/const';
+import * as Utils from '../common/utils';
+import * as Style from '../style/common';
 
 export default class Mark extends Component {
   constructor(props) {
@@ -9,7 +12,6 @@ export default class Mark extends Component {
 
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      console.log('focus mark screen');
       checkSession().catch((reason) => {
         if (
           reason.code &&
@@ -26,8 +28,11 @@ export default class Mark extends Component {
   }
   render() {
     return (
-      <View>
-        <Text>Mark screen</Text>
+      <View style={Style.common.container}>
+        <StatusBar hidden={false} backgroundColor="orange" />
+        <View style={Style.common.header}>
+          <Text style={Style.common.labelTitle}>BÁO CÁO ĐIỂM</Text>
+        </View>
       </View>
     );
   }
