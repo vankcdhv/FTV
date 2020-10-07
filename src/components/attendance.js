@@ -3,7 +3,7 @@ import {View, Text, StatusBar, ActivityIndicator, FlatList} from 'react-native';
 import {checkSession} from '../common/utils';
 import * as Const from '../common/const';
 import * as Utils from '../common/utils';
-import * as Style from '../style/common';
+import * as Style from '../style/style';
 import * as Request from '../common/request';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -193,7 +193,7 @@ export default class Attendance extends Component {
         <View style={Style.common.header}>
           <Text style={Style.common.labelTitle}>BÁO CÁO ĐIỂM DANH</Text>
           {isLoadingTerm ? (
-            <View style={{height: 50}}></View>
+            <View style={{height: Utils.scale(50, Const.Vertical)}} />
           ) : (
             <View>
               <Text style={Style.common.labelTitle}>{selectedTerm}</Text>
@@ -202,19 +202,14 @@ export default class Attendance extends Component {
         </View>
         <View style={Style.calendar.boundSelectDay}>
           {isLoadingTerm ? (
-            <View
-              style={{
-                height: 70,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <ActivityIndicator size="large" color="green" />
+            <View style={Style.attendance.selectTermLoading}>
+              <ActivityIndicator size="large" color="orange" />
             </View>
           ) : (
             <FlatList
               horizontal={true}
               data={listTerm}
-              keyExtractor={({code}, index) => index}
+              keyExtractor={({code}, index) => index + ''}
               initialScrollIndex={listTerm.length - 1}
               renderItem={({item}) => (
                 <Text
@@ -222,8 +217,8 @@ export default class Attendance extends Component {
                   style={[
                     Style.calendar.dayInWeek,
                     this.state.selectedTerm === item.name
-                      ? Style.calendar.selectedDay
-                      : Style.calendar.notSelectedDay,
+                      ? Style.common.selectedDay
+                      : Style.common.notSelectedDay,
                   ]}>
                   {item.name}
                 </Text>
@@ -231,23 +226,15 @@ export default class Attendance extends Component {
             />
           )}
         </View>
-        <View
-          style={[
-            Style.calendar.flexRow,
-            {
-              height: 550,
-              padding: 20,
-              backgroundColor: 'white',
-              borderRadius: 15,
-              marginTop: 15,
-            },
-          ]}>
-          <View style={{width: 110}}>
+        <View style={[Style.common.flexRow, Style.attendance.resultBound]}>
+          <View style={{width: Utils.scale(110, Const.Horizontal)}}>
             {isLoadingCourse ? (
-              <ActivityIndicator size="large" color="green" />
+              <View style={Style.attendance.selectCourseLoading}>
+                <ActivityIndicator size="large" color="orange" />
+              </View>
             ) : (
               <View>
-                {listCourse.length && listCourse.length == 0 ? (
+                {listCourse.length && listCourse.length === 0 ? (
                   <View />
                 ) : (
                   <FlatList
@@ -258,9 +245,9 @@ export default class Attendance extends Component {
                         onPress={() => this.onPressSelectCourse(item.course)}
                         style={[
                           this.state.selectedCourse === item.course
-                            ? Style.calendar.selectedDay
-                            : Style.calendar.notSelectedDay,
-                          {padding: 20},
+                            ? Style.common.selectedDay
+                            : Style.common.notSelectedDay,
+                          {padding: Utils.scale(20, Const.Horizontal)},
                         ]}>
                         {item.code}
                       </Text>
@@ -270,25 +257,23 @@ export default class Attendance extends Component {
               </View>
             )}
           </View>
-          <View
-            style={{
-              borderLeftWidth: 1,
-              borderLeftColor: 'green',
-              marginLeft: 5,
-            }}>
+          <View style={Style.attendance.reportsBound}>
             {isLoadingReport ? (
-              <ActivityIndicator size="large" color="green" />
+              <View style={Style.attendance.reportsLoading}>
+                <ActivityIndicator size="large" color="orange" />
+              </View>
             ) : (
               <View>
-                {reports.length && reports.length == 0 ? (
+                {reports.length && reports.length === 0 ? (
                   <View />
                 ) : (
                   <FlatList
                     data={reports}
                     keyExtractor={({no}, index) => no + ''}
                     renderItem={({item}) => (
-                      <View style={{padding: 10}}>
-                        <View style={Style.calendar.flexRow}>
+                      <View
+                        style={{padding: Utils.scale(10, Const.Horizontal)}}>
+                        <View style={Style.common.flexRow}>
                           <Text onPress={() => this.onPressOnSlot(item)}>
                             {item.date + ' - '}
                           </Text>
@@ -296,8 +281,10 @@ export default class Attendance extends Component {
                             onPress={() => this.onPressOnSlot(item)}
                             style={
                               item.status === 'Present'
-                                ? Style.calendar.attended
-                                : Style.calendar.absent
+                                ? Style.common.attended
+                                : item.status === 'Absent'
+                                ? Style.common.absent
+                                : Style.common.future
                             }>
                             {item.status}
                           </Text>
@@ -306,17 +293,17 @@ export default class Attendance extends Component {
                           <View>
                             <Text
                               onPress={() => this.onPressOnSlot(item)}
-                              style={{padding: 10}}>
+                              style={Style.attendance.slotReportMoreInfo}>
                               {'No: ' + item.no}
                             </Text>
                             <Text
                               onPress={() => this.onPressOnSlot(item)}
-                              style={{padding: 10}}>
+                              style={Style.attendance.slotReportMoreInfo}>
                               {'Slot: ' + item.slot}
                             </Text>
                             <Text
                               onPress={() => this.onPressOnSlot(item)}
-                              style={{padding: 10}}>
+                              style={Style.attendance.slotReportMoreInfo}>
                               {'Giáo viên: ' + item.lecturer}
                             </Text>
                           </View>

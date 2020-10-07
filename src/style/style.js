@@ -17,6 +17,28 @@ export const common = StyleSheet.create({
     color: 'white',
     fontFamily: 'OpenSansCondensed-Light',
   },
+  selectedDay: {
+    color: 'orange',
+    fontWeight: 'bold',
+  },
+  notSelectedDay: {
+    color: 'black',
+  },
+  attended: {
+    color: 'green',
+  },
+  absent: {
+    color: 'red',
+  },
+  future: {
+    color: 'orange',
+  },
+  flexRow: {
+    flexDirection: 'row',
+  },
+  flexCol: {
+    flexDirection: 'column',
+  },
 });
 export const calendar = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#f0f0f5'},
@@ -89,25 +111,6 @@ export const calendar = StyleSheet.create({
     paddingHorizontal: Utils.scale(25, Const.horizontal),
     paddingVertical: Utils.scale(25, Const.Vertical),
   },
-  selectedDay: {
-    color: 'green',
-    fontWeight: 'bold',
-  },
-  notSelectedDay: {
-    color: 'black',
-  },
-  attended: {
-    color: 'green',
-  },
-  absent: {
-    color: 'red',
-  },
-  flexRow: {
-    flexDirection: 'row',
-  },
-  flexCol: {
-    flexDirection: 'column',
-  },
   borderLeft: {
     borderLeftWidth: 1,
     borderLeftColor: 'green',
@@ -115,6 +118,42 @@ export const calendar = StyleSheet.create({
   },
 });
 
+export const attendance = StyleSheet.create({
+  selectTermLoading: {
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultBound: {
+    height: 550,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    marginTop: 15,
+  },
+  selectCourseLoading: {
+    height: 540,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  reportsBound: {
+    borderLeftWidth: 1,
+    borderLeftColor: 'orange',
+    marginLeft: 5,
+  },
+  reportsLoading: {
+    height: 540,
+    width: 290,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slotReportMoreInfo: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 30,
+  },
+});
+
 export const mark = StyleSheet.create({});
-export const attendance = StyleSheet.create({});
 export const home = StyleSheet.create({});

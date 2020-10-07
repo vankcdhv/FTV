@@ -3,7 +3,6 @@ import {
   FlatList,
   Text,
   View,
-  StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
   StatusBar,
@@ -13,7 +12,7 @@ import {checkSession} from '../common/utils';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as Const from '../common/const';
 import * as Utils from '../common/utils';
-import * as Style from '../style/common';
+import * as Style from '../style/style';
 
 export default class Calendar extends Component {
   constructor(props) {
@@ -133,7 +132,7 @@ export default class Calendar extends Component {
         <StatusBar hidden={false} backgroundColor="orange" />
         <View style={Style.common.header}>
           <Text style={Style.common.labelTitle}>THỜI KHÓA BIỂU</Text>
-          <View style={Style.calendar.flexRow}>
+          <View style={Style.common.flexRow}>
             <View style={{alignItems: 'center'}}>
               <Text style={Style.calendar.nowDate}>{new Date().getDate()}</Text>
               <Text style={Style.calendar.nowDay}>
@@ -162,14 +161,15 @@ export default class Calendar extends Component {
               {key: '7', value: 'Sat'},
               {key: 'CN', value: 'Sun'},
             ]}
+            initialScrollIndex={this.state.selectedDay - 2}
             renderItem={({item}) => (
               <TouchableOpacity>
                 <Text
                   style={[
                     Style.calendar.dayInWeek,
                     this.state.selectedDay === item.key
-                      ? Style.calendar.selectedDay
-                      : Style.calendar.notSelectedDay,
+                      ? Style.common.selectedDay
+                      : Style.common.notSelectedDay,
                   ]}
                   onPress={() => this.onPressDayInWeek(item.key)}>
                   {item.value}
@@ -189,12 +189,12 @@ export default class Calendar extends Component {
               renderItem={({item}) => {
                 if (item.course) {
                   return (
-                    <View style={Style.calendar.flexRow}>
-                      <View style={Style.calendar.flexRow}>
+                    <View style={Style.common.flexRow}>
+                      <View style={Style.common.flexRow}>
                         <Text onPress={() => this.onPressSlot(item)}>
                           {item.time}
                         </Text>
-                        <View style={Style.calendar.greenCircle}></View>
+                        <View style={Style.calendar.greenCircle} />
                       </View>
                       <View style={Style.calendar.borderLeft}>
                         <Text
@@ -217,8 +217,10 @@ export default class Calendar extends Component {
                             <Text
                               style={[
                                 item.status === 'attended'
-                                  ? Style.calendar.attended
-                                  : Style.calendar.absent,
+                                  ? Style.common.attended
+                                  : item.status === 'absent'
+                                  ? Style.common.absent
+                                  : Style.common.future,
                                 {
                                   marginBottom: Utils.scale(20, Const.Vertical),
                                 },
@@ -227,7 +229,7 @@ export default class Calendar extends Component {
                             </Text>
                           </View>
                         ) : (
-                          <View></View>
+                          <View />
                         )}
                       </View>
                     </View>

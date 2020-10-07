@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {WebView} from 'react-native-webview';
 import CookieManager from '@react-native-community/cookies';
