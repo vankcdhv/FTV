@@ -101,14 +101,14 @@ export const calendar = StyleSheet.create({
   },
   listBound: {
     flex: 1,
-    paddingHorizontal: Utils.scale(60, Const.horizontal),
+    paddingHorizontal: Utils.scale(60, Const.Horizontal),
     paddingVertical: Utils.scale(60, Const.Vertical),
     borderRadius: 15,
     backgroundColor: 'white',
     marginTop: Utils.scale(15, Const.Vertical),
   },
   dayInWeek: {
-    paddingHorizontal: Utils.scale(25, Const.horizontal),
+    paddingHorizontal: Utils.scale(25, Const.Horizontal),
     paddingVertical: Utils.scale(25, Const.Vertical),
   },
   borderLeft: {
@@ -120,20 +120,21 @@ export const calendar = StyleSheet.create({
 
 export const attendance = StyleSheet.create({
   selectTermLoading: {
-    height: 70,
+    height: Utils.scale(70, Const.Vertical),
     justifyContent: 'center',
     alignItems: 'center',
   },
   resultBound: {
-    height: 550,
-    padding: 20,
+    height: Utils.scale(550, Const.Vertical),
+    paddingHorizontal: Utils.scale(20, Const.Horizontal),
+    paddingVertical: Utils.scale(20, Const.Vertical),
     backgroundColor: 'white',
     borderRadius: 15,
-    marginTop: 15,
+    marginTop: Utils.scale(15, Const.Vertical),
   },
   selectCourseLoading: {
-    height: 540,
-    width: 100,
+    height: Utils.scale(540, Const.Vertical),
+    width: Utils.scale(100, Const.Horizontal),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -143,15 +144,15 @@ export const attendance = StyleSheet.create({
     marginLeft: 5,
   },
   reportsLoading: {
-    height: 540,
-    width: 290,
+    height: Utils.scale(540, Const.Vertical),
+    width: Utils.scale(290, Const.Horizontal),
     justifyContent: 'center',
     alignItems: 'center',
   },
   slotReportMoreInfo: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 30,
+    paddingTop: Utils.scale(10, Const.Vertical),
+    paddingBottom: Utils.scale(10, Const.Vertical),
+    paddingLeft: Utils.scale(550, Const.Horizontal),
   },
 });
 

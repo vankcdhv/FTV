@@ -4,6 +4,7 @@ import {checkSession} from '../common/utils';
 import {Get} from '../common/request';
 import AsyncStorage from '@react-native-community/async-storage';
 import CookieManager from '@react-native-community/cookies';
+import {WebView} from 'react-native-webview';
 
 export default class Home extends Component {
   constructor(props) {
@@ -97,23 +98,15 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View>
-        <View>
-          <Button
-            title="Keep"
-            onPress={() => {
-              this.keepSession();
-            }}
-          />
-        </View>
-        <View style={{marginTop: 10}}>
-          <Button
-            title="Logout"
-            onPress={() => {
-              this.logout();
-            }}
-          />
-        </View>
+      <View style={{flex: 1}}>
+        <WebView
+          source={{
+            uri: 'https://daihoc.fpt.edu.vn/',
+          }}
+          userAgent={
+            'Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.127 Mobile Safari/537.36'
+          }
+        />
       </View>
     );
   }

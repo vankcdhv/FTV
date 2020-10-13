@@ -8,6 +8,7 @@ class LoginScreen extends Component {
     cookies: {},
     webViewUrl: '',
     webRef: {},
+    isDone: 0,
   };
 
   constructor(props) {
@@ -27,6 +28,18 @@ class LoginScreen extends Component {
   onNavigationStateChange = (webViewState: {url: string}) => {
     const {url} = webViewState;
     // console.log(url);
+    if (
+      url.startsWith(
+        'https://accounts.google.com/signin/oauth/consent?authuser=0&part',
+      )
+    ) {
+      let {isDone} = this.state;
+      this.setState({isDone: isDone + 1});
+      // console.log(isDone);
+      if (isDone === 1) {
+        this.props.navigation.navigate('Home');
+      }
+    }
     if (url.includes('http')) {
       this.setState({webViewUrl: url});
     }
@@ -40,7 +53,7 @@ class LoginScreen extends Component {
     ) {
       if (cookies['ASP.NET_SessionId']) {
         this.storeData(cookies['ASP.NET_SessionId'].value);
-        this.props.navigation.navigate(this.props.route.params.before, {
+        this.props.navigation.navigate('Home', {
           cookie: cookies['ASP.NET_SessionId'].value,
         });
       }

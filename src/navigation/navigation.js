@@ -13,58 +13,52 @@ const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        tabBarOptions={{
-          activeTintColor: 'red',
-          activeBackgroundColor: 'white',
-        }}>
-        <Tab.Screen
-          name="Home"
-          component={HomeStack}
-          options={{
-            title: 'Home',
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Calendar"
-          component={CalendarStack}
-          options={{
-            title: 'Thời khóa biểu',
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcons
-                name="calendar"
-                color={color}
-                size={size}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Mark"
-          component={MarkStack}
-          options={{
-            title: 'Bảng điểm',
-            tabBarIcon: ({color, size}) => (
-              <MaterialIcons name="grade" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Attendance"
-          component={AttendanceStack}
-          options={{
-            title: 'Điểm danh',
-            tabBarIcon: ({color, size}) => (
-              <Octicons name="checklist" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator
+      initialRouteName="Home"
+      tabBarOptions={{
+        activeTintColor: 'red',
+        activeBackgroundColor: 'white',
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          title: 'Home',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Calendar"
+        component={CalendarStack}
+        options={{
+          title: 'Thời khóa biểu',
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcons name="calendar" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Mark"
+        component={MarkStack}
+        options={{
+          title: 'Bảng điểm',
+          tabBarIcon: ({color, size}) => (
+            <MaterialIcons name="grade" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Attendance"
+        component={AttendanceStack}
+        options={{
+          title: 'Điểm danh',
+          tabBarIcon: ({color, size}) => (
+            <Octicons name="checklist" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }

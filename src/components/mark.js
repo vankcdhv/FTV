@@ -55,7 +55,7 @@ export default class Mark extends Component {
           .catch((reason) => {
             console.log(reason);
             if (reason.code === 'TIME_OUT') {
-              this.props.navigation.navigate('HomeStack');
+              this.props.navigation.navigate('Home');
             }
           });
       })
@@ -86,7 +86,7 @@ export default class Mark extends Component {
           .catch((reason) => {
             console.log(reason);
             if (reason.code === 'TIME_OUT') {
-              this.props.navigation.navigate('HomeStack');
+              this.props.navigation.navigate('Home');
             }
           });
       })
@@ -118,7 +118,7 @@ export default class Mark extends Component {
           .catch((reason) => {
             console.log(reason);
             if (reason.code === 'TIME_OUT') {
-              this.props.navigation.navigate('HomeStack');
+              this.props.navigation.navigate('Home');
             }
           });
       })
@@ -148,7 +148,7 @@ export default class Mark extends Component {
             reason.code &&
             (reason.code === 'TIME_OUT' || reason.code === 'NOT_FOUND')
           ) {
-            this.props.navigation.navigate('Login');
+            this.props.navigation.navigate('Home');
           }
         });
     });
