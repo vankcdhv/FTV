@@ -1,0 +1,13 @@
+(node:10340) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:10340) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'student' of null
+    at Object.json (E:\Downloads\Documents\NodeJS\Heroku\test-fap-api\src\api\fap\logic.js:32:38)
+    at E:\Downloads\Documents\NodeJS\Heroku\test-fap-api\src\api\profile\controller.js:32:21
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+(node:10340) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:10340) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:10340) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'toString' of undefined
+    at Object.json (E:\Downloads\Documents\NodeJS\Heroku\test-fap-api\src\api\fap\logic.js:305:110)
+    at E:\Downloads\Documents\NodeJS\Heroku\test-fap-api\src\api\profile\controller.js:59:21
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+(node:10340) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
