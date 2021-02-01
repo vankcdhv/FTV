@@ -6,11 +6,7 @@ module.exports = function (app) {
   let chatbotCtrl = require('../chatbot/controller');
   let profileCtrl = require('../profile/controller');
   let attendanceCtrl = require('../attandance/controller');
-  let loginCtrl = require('../login/controller');
 
-  //Use to test
-  app.route('/test')
-    .get(loginCtrl.getPuppeteer);
 
   //Keep heroku don't sleep
   app.route('/heroku')

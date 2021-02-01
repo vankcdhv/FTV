@@ -1,4 +1,3 @@
-const puppeteer = require("puppeteer");
 const cheerio = require('cheerio');
 const requestHandler = require('../common/request');
 const Logic = require('./logic');
@@ -49,40 +48,5 @@ module.exports = {
 
 
     },
-    getPuppeteer: (req, res) => {
-        let header = req.headers;
 
-        (async () => {
-            const browser = await puppeteer.launch({
-                headless: false,
-                devtools: true
-            });
-            const page = await browser.newPage();
-
-            await page.setRequestInterception(true);
-            page.on('request', request => {
-                // Do nothing in case of non-navigation requests.
-                if (!request.isNavigationRequest()) {
-                    request.continue();
-                    return;
-                }
-                // Add a new header for navigation request.
-                const headers = request.headers();
-                headers['cookie'] = header.cookie;
-                request.continue({
-                    headers
-                });
-            });
-
-            await page.goto('http://fap.fpt.edu.vn/Report/ScheduleOfWeek.aspx');
-
-            //await page.select('#ctl00_mainContent_drpSelectWeek', '31');
-
-            let content = await page.content();
-            res.render('home', {
-                html: content
-            });
-            //await browser.close();
-        })();
-    },
 };
