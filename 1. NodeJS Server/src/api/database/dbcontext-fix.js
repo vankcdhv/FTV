@@ -87,6 +87,8 @@ const DBContext = (() => {
           let values = [];
           let paramList = [];
           let inputs = [];
+          console.log('update', entity);
+          console.log('param', params);
           for (let k in entity) {
             sqlRequest.input(k, entity[k]);
             cols.push(k);

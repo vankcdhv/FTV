@@ -90,7 +90,7 @@ class Logic {
                         }
                         studentDB.updateStudent(data, studentID)
                             .then(response => {
-                                if (response.changedRows > 0) {
+                                if (response > 0) {
                                     this.sendMessage(recipient, 'Bạn đã đăng ký facebook này cho mã sinh viên ' + studentID);
                                 } else {
                                     this.sendMessage(recipient, "Ops!! Mã sinh viên không đúng thì phải!");

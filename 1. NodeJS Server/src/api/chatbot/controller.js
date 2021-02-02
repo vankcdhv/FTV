@@ -2,6 +2,7 @@ const chatbot_config = require('../../../config/chatbot').config;
 const logic = require('./logic');
 module.exports = {
     get: (req, res) => { // Đây là path để validate tooken bên app facebook gửi qua
+        console.log('chat bot', req);
         if (req.query['hub.verify_token'] === chatbot_config.validation_token) {
             res.status(200).send(req.query['hub.challenge']);
         } else

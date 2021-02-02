@@ -48,7 +48,8 @@ module.exports = {
                     value: id
                 }
             ]
-            dbcontext.update(query, student, id, (err, res) => {
+
+            dbcontext.update(query, student, param, (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
