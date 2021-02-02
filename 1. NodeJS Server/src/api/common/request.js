@@ -1,5 +1,3 @@
-
-const { delete, head } = require('request');
 const request = require('request');
 
 module.exports = {
