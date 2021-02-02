@@ -12,7 +12,7 @@ module.exports = {
                 header.Host = 'fap.fpt.edu.vn';
                 header.host = 'fap.fpt.edu.vn';
             }
-            header.user - agent = null;
+            header.['user-agent'] = null;
             let option = {
                 headers: header,
                 uri: url,
