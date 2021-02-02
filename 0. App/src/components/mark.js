@@ -35,6 +35,8 @@ export default class Mark extends Component {
   };
 
   getReportOfCourse(course) {
+    console.log('report');
+
     this.setState({ isLoadingReport: true });
     this.getData('cookie')
       .then((cookie) => {
@@ -66,6 +68,8 @@ export default class Mark extends Component {
   }
 
   getListCourseOfTerm(term) {
+    console.log('course');
+
     this.setState({ isLoadingCourse: true });
     this.getData('cookie')
       .then((cookie) => {
@@ -105,7 +109,7 @@ export default class Mark extends Component {
         let headers = {
 
           'cookie': cookie,
-        }; s
+        }; 
         let uri = Const.Domain + '/fap/markreport';
         Request.Get(uri, headers)
           .then((listTerm) => {

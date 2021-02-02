@@ -4,8 +4,8 @@ module.exports = {
     get: (req, res) => { // Đây là path để validate tooken bên app facebook gửi qua
         if (req.query['hub.verify_token'] === chatbot_config.validation_token) {
             res.send(req.query['hub.challenge']);
-        }
-        res.send('Error, wrong validation token');
+        } else
+            res.send('Error, wrong validation token');
     },
 
     post: (req, res) => { // Phần sử lý tin nhắn của người dùng gửi đến
