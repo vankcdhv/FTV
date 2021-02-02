@@ -30,11 +30,8 @@ module.exports = {
                             var cookieString = result[i].session;
 
                             let headers = {
-                                'Cookie': cookieString,
-                                'Host': 'test-fap-api.herokuapp.com'
+                                'Cookie': cookieString
                             }
-                            console.log('------------------------------------------');
-                            console.log('Header request', headers);
                             req = {
                                 headers: headers
                             };

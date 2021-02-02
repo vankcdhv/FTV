@@ -12,13 +12,12 @@ module.exports = {
                 header.Host = 'fap.fpt.edu.vn';
                 header.host = 'fap.fpt.edu.vn';
             }
-	    delete header['accept-encoding'];
+            delete header['accept-encoding'];
             let option = {
                 headers: header,
                 uri: url,
                 method: method
             }
-            console.log(header);
             request(option, function (error, response, body) {
                 if (error) {
                     reject(error);

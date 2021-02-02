@@ -51,7 +51,7 @@ module.exports = {
             let query = 'UPDATE Course';
             let param = [
                 {
-                    key: 'courseid',
+                    key: 'course',
                     value: courseID
                 }
             ];

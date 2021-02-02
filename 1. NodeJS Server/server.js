@@ -36,11 +36,8 @@ const {
   });
 
   app.listen(port);
-
   console.log("RESTful API server started on: " + port);
-  //await sleep(10000);
   console.log('Start...');
   keepSession.keepSession();
-  messageNotify.notify();
-  //keepHeroku.doNotSleepHeroku();
+  //messageNotify.notify();
 })();

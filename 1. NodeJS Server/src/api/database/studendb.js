@@ -30,7 +30,6 @@ module.exports = {
             let query = 'INSERT INTO Student';
             dbcontext.insert(query, student, (err, res) => {
                 if (err) {
-                    console.log(err.number);
                     if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) { } else {
                         reject(err);
                     }
