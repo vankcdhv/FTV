@@ -69,11 +69,11 @@ export default class Calendar extends Component {
             .then((result) => {
               cookie = 'ASP.NET_SessionId=' + result;
               let headers = {
-                'host':'test-fap-api.herokuapp.com',
+                
                 'cookie': cookie,
               };
 
-              Get('https://test-fap-api.herokuapp.com/fap/timetable', headers)
+              Get(Const.Domain + '/fap/timetable', headers)
                 .then((data) => {
                   this.processData(data);
                 })

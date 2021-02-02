@@ -17,6 +17,7 @@ module.exports = {
                 uri: url,
                 method: method
             }
+            console.log(header);
             request(option, function (error, response, body) {
                 if (error) {
                     reject(error);

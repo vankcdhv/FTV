@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {View, Button} from 'react-native';
-import {checkSession} from '../common/utils';
-import {Get} from '../common/request';
+import React, { Component } from 'react';
+import { View, Button } from 'react-native';
+import { checkSession } from '../common/utils';
+import { Get } from '../common/request';
 import AsyncStorage from '@react-native-community/async-storage';
 import CookieManager from '@react-native-community/cookies';
-import {WebView} from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 
 export default class Home extends Component {
   constructor(props) {
@@ -66,16 +66,16 @@ export default class Home extends Component {
   keepSession() {
     this.getData('cookie').then((result) => {
       let headers = ({
-        'host':'test-fap-api.herokuapp.com',
+        
         'cookie': 'ASP.NET_SessionId=' + result,
       });
-      Get('https://test-fap-api.herokuapp.com/fap/keep', headers)
+      Get(Const.Domain + '/fap/keep', headers)
         .then((data) => {
-          this.setState({keepSession: true});
+          this.setState({ keepSession: true });
         })
         .catch((reason) => {
           console.log(reason);
-          this.setState({keepSession: false});
+          this.setState({ keepSession: false });
           if (
             reason.code &&
             (reason.code === 'TIME_OUT' || reason.code === 'NOT_FOUND')
@@ -99,7 +99,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <WebView
           source={{
             uri: 'https://daihoc.fpt.edu.vn/',

@@ -40,11 +40,11 @@ export default class Mark extends Component {
       .then((cookie) => {
         cookie = 'ASP.NET_SessionId=' + cookie;
         let headers = {
-          'host':'test-fap-api.herokuapp.com',
+
           'cookie': cookie,
         };
         let uri =
-          'https://test-fap-api.herokuapp.com/fap/markreport/0/' + course;
+          Const.Domain + '/fap/markreport/0/' + course;
         Request.Get(uri, headers)
           .then((reports) => {
             reports = reports.mark;
@@ -71,10 +71,10 @@ export default class Mark extends Component {
       .then((cookie) => {
         cookie = 'ASP.NET_SessionId=' + cookie;
         let headers = {
-          'host':'test-fap-api.herokuapp.com',
+
           'cookie': cookie,
         };
-        let uri = 'https://test-fap-api.herokuapp.com/fap/markreport/' + term;
+        let uri = Const.Domain + '/fap/markreport/' + term;
         Request.Get(uri, headers)
           .then((listCourse) => {
             listCourse = listCourse.listCourse;
@@ -103,10 +103,10 @@ export default class Mark extends Component {
       .then((cookie) => {
         cookie = 'ASP.NET_SessionId=' + cookie;
         let headers = {
-          'host':'test-fap-api.herokuapp.com',
+
           'cookie': cookie,
-        };s
-        let uri = 'https://test-fap-api.herokuapp.com/fap/markreport';
+        }; s
+        let uri = Const.Domain + '/fap/markreport';
         Request.Get(uri, headers)
           .then((listTerm) => {
             listTerm = listTerm.listTerm;

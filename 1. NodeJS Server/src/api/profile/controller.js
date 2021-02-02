@@ -7,8 +7,6 @@ const requestHandler = require('../common/request');
 module.exports = {
     get: (req, res) => {
         let headers = req.headers;
-        console.log('------------------------------------------');
-        console.log('Header request', headers);
         let url = 'http://fap.fpt.edu.vn/User/Profile.aspx';
         requestHandler.httpRequest(url, headers)
             .then(body => {
@@ -34,8 +32,6 @@ module.exports = {
     },
     getStudentID: (req, res) => {
         let headers = req.headers;
-        console.log('------------------------------------------');
-        console.log('Header request', headers);
         let url = 'http://fap.fpt.edu.vn/User/Profile.aspx';
         requestHandler.httpRequest(url, headers)
             .then(body => {

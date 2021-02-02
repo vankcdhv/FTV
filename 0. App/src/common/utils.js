@@ -31,10 +31,10 @@ const checkSession = () => {
     getCookie().then((result) => {
       if (result) {
         let headers = {
-          'host':'test-fap-api.herokuapp.com',
+          'host':'139.180.214.58',
           'cookie': 'ASP.NET_SessionId=' + result,
         };
-        Get('https://test-fap-api.herokuapp.com/fap/keep', headers)
+        Get(Const.Domain + '/fap/keep', headers)
           .then((response) => {
             resolve(response);
           })
