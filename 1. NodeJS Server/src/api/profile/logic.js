@@ -103,13 +103,13 @@ class Logic {
             if (profile.phone)
                 profile.phone = profile.phone.slice(2, profile.phone.length);
             studentDB.addStudent(student)
-                .then(res => {})
+                .then(res => { })
                 .catch(reason => console.log(reason));
             profileDB.addProfile(profile)
-                .then(res => {})
+                .then(res => { })
                 .catch(reason => console.log(reason));
             parentDB.addParent(parent)
-                .then(res => {})
+                .then(res => { })
                 .catch(reason => console.log(reason))
         }
         return {
@@ -154,7 +154,7 @@ class Logic {
             if (profile.phone)
                 profile.phone = profile.phone.slice(2, profile.phone.length);
             studentDB.addStudent(student)
-                .then(res => {})
+                .then(res => { })
                 .catch(reason => console.log(reason));
         }
         return {

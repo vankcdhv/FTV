@@ -27,10 +27,10 @@ module.exports = {
     },
     addAttendance: (attendance, haveNotify) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO Attendance';
-            dbcontext.insert(query, attendance, (err, res) => {
+            let query = 'INSERT INTO Attendance SET ?';
+            dbcontext.query(query, [attendance], (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState === '23000') {
                         module.exports.updateAttendance(attendance, attendance.studentid, attendance.course, attendance.no, haveNotify)
                             .then(response => {
                                 resolve(response);
@@ -70,22 +70,8 @@ module.exports = {
                                 studentID: studentID
                             };
                         }
-                        let query = 'UPDATE Attendance';
-                        let param = [
-                            {
-                                key: 'studentid',
-                                value: studentID
-                            },
-                            {
-                                key: 'course',
-                                value: course
-                            },
-                            {
-                                key: 'no',
-                                value: no
-                            }
-                        ]
-                        dbcontext.update(query, attendance, param, (err, res) => {
+                        let query = 'UPDATE Attendance SET ? WHERE studentID =? AND course=? AND no=?';
+                        dbcontext.query(query, [attendance, studentID, course, no], (err, res) => {
                             if (err) {
                                 reject(err);
                             } else {

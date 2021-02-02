@@ -28,10 +28,10 @@ module.exports = {
     },
     addOTP: (OTP) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO OTP';
-            dbcontext.insert(query, OTP, (err, res) => {
+            let query = 'INSERT INTO OTP SET ?';
+            dbcontext.query(query, [OTP], (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState === '23000') {
                         module.exports.updateOTP(OTP, OTP.studentid)
                             .then(response => {
                                 resolve(response);
@@ -50,14 +50,8 @@ module.exports = {
     },
     updateOTP: (OTP, studentID) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE OTP';
-            let param = [
-                {
-                    key: 'studentID',
-                    value: studentID
-                }
-            ]
-            dbcontext.update(query, OTP, param, (err, res) => {
+            let query = 'UPDATE OTP SET ? WHERE studentID =?';
+            dbcontext.query(query, [OTP, studentID], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

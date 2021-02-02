@@ -29,10 +29,10 @@ module.exports = {
     },
     addMark: (mark, haveNotify) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO Mark SET ?';
-            dbcontext.query(query, [mark], (err, res) => {
+            let query = 'INSERT INTO Mark';
+            dbcontext.insert(query, mark, (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
+                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
                         module.exports.updateMark(mark, mark.studentid, mark.subjectid)
                             .then(response => {
                                 resolve(response);
@@ -61,8 +61,22 @@ module.exports = {
     },
     updateMark: (mark, studentID, subjectID) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE Mark SET ? WHERE studentID =? AND subjectID=? AND pos=?';
-            dbcontext.query(query, [mark, studentID, subjectID, mark.pos], (err, res) => {
+            let query = 'UPDATE Mark';
+            let param = [
+                {
+                    key: 'studentID',
+                    value: studentID
+                },
+                {
+                    key: 'subjectID',
+                    value: subjectID
+                },
+                {
+                    key: 'pos',
+                    value: mark.pos
+                }
+            ];
+            dbcontext.update(query, mark, param, (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

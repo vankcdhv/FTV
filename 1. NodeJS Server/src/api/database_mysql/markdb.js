@@ -1,10 +1,11 @@
 const dbcontext = require('./dbcontext');
+const subjectDB = require('./subjectdb');
 const studentDB = require('./studendb');
 const chatbot = require('../chatbot/logic')
 module.exports = {
-    getAllOTP: () => {
+    getAllMark: () => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM OTP';
+            let query = 'SELECT * FROM Mark';
             dbcontext.query(query, null, (err, res) => {
                 if (err) {
                     reject(err);
@@ -14,10 +15,10 @@ module.exports = {
             })
         });
     },
-    getOTPByStudentID: (studentID) => {
+    getMarkByID: (studentID, subjectID) => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM OTP WHERE studentID = ?';
-            dbcontext.query(query, [studentID], (err, res) => {
+            let query = 'SELECT * FROM Mark WHERE studentID = ? AND subjectID = ?';
+            dbcontext.query(query, [studentID, subjectID], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -26,13 +27,13 @@ module.exports = {
             })
         });
     },
-    addOTP: (OTP) => {
+    addMark: (mark, haveNotify) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO OTP';
-            dbcontext.insert(query, OTP, (err, res) => {
+            let query = 'INSERT INTO Mark SET ?';
+            dbcontext.query(query, [mark], (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
-                        module.exports.updateOTP(OTP, OTP.studentid)
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
+                        module.exports.updateMark(mark, mark.studentid, mark.subjectid)
                             .then(response => {
                                 resolve(response);
                             })
@@ -43,21 +44,25 @@ module.exports = {
                         reject(err);
                     }
                 } else {
+                    if (haveNotify === 'true') {
+                        studentDB.getStudentByID(mark.studentID)
+                            .then(listStudent => {
+                                let student = listStudent[0];
+                                chatbot.sendMessageAddMark(student.Recipient, mark)
+                            })
+                            .catch(reason => {
+                                console.log(reason);
+                            })
+                    }
                     resolve(res)
                 }
             })
         })
     },
-    updateOTP: (OTP, studentID) => {
+    updateMark: (mark, studentID, subjectID) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE OTP';
-            let param = [
-                {
-                    key: 'studentID',
-                    value: studentID
-                }
-            ]
-            dbcontext.update(query, OTP, param, (err, res) => {
+            let query = 'UPDATE Mark SET ? WHERE studentID =? AND subjectID=? AND pos=?';
+            dbcontext.query(query, [mark, studentID, subjectID, mark.pos], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -66,10 +71,10 @@ module.exports = {
             })
         });
     },
-    removeOTP: (studentID, code) => {
+    removeMark: (studentID, subjectID) => {
         return new Promise((resolve, reject) => {
-            let query = 'DELETE FROM OTP WHERE studentID =? AND otp = ?';
-            dbcontext.query(query, [studentID, code], (err, res) => {
+            let query = 'DELETE FROM Mark WHERE studentID =? AND subjectID=?';
+            dbcontext.query(query, [studentID, subjectID], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

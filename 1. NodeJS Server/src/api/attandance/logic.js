@@ -69,9 +69,10 @@ module.exports = {
             let str = $(list[i]).text().trim();
             if (str == 'Present' || str == 'Absent' || str == 'Future') {
                 let item = {
-                    no: $(list[i - 5]).text().trim(),
-                    date: $(list[i - 4]).text().trim(),
-                    slot: $(list[i - 3]).text().trim(),
+                    no: $(list[i - 6]).text().trim(),
+                    date: $(list[i - 5]).text().trim(),
+                    slot: $(list[i - 4]).text().trim(),
+                    room: $(list[i - 3]).text().trim(),
                     lecturer: $(list[i - 2]).text().trim(),
                     status: $(list[i]).text().trim(),
                     comment: $(list[i + 1]).text().trim(),
@@ -84,6 +85,7 @@ module.exports = {
             let item = report[i];
             item['studentid'] = studentID;
             item['course'] = courseID;
+            console.log(item);
             attendancedb.addAttendance(item, haveNotify)
                 .then(response => {
                     if (response.code == 'ABSENT') {

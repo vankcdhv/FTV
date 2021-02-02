@@ -11,7 +11,6 @@ const {
 } = require("./src/api/fap/logic");
 
 (async () => {
-  db.getInstance();
   dotenv.config({
     path: "./config/.env"
   });
@@ -39,7 +38,7 @@ const {
   app.listen(port);
 
   console.log("RESTful API server started on: " + port);
-  await sleep(10000);
+  //await sleep(10000);
   console.log('Start...');
   keepSession.keepSession();
   messageNotify.notify();

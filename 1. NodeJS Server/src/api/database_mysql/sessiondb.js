@@ -40,10 +40,10 @@ module.exports = {
     addHeader: (session) => {
         return new Promise((resolve, reject) => {
 
-            let sql = 'INSERT INTO HeaderKeepSession';
-            dbContext.insert(sql, session, (err, response) => {
+            let sql = 'INSERT INTO HeaderKeepSession SET ?';
+            dbContext.query(sql, [session], (err, response) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
                         module.exports.updateSession(session.studentid, session)
                             .then(response => {
                                 resolve(response);
@@ -61,12 +61,8 @@ module.exports = {
     },
     updateSession: (studentID, session) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE HeaderKeepSession';
-            let param = [{
-                key: 'studentID',
-                value: studentID
-            }]
-            dbContext.update(query, session, param, (err, res) => {
+            let query = 'UPDATE HeaderKeepSession SET ? WHERE studentID =?';
+            dbContext.query(query, [session, studentID], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

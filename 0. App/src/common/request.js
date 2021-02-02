@@ -5,7 +5,7 @@ const Get = (uri, header) => {
       method: 'GET',
       headers: header,
     })
-      .then((response) => { console.log(response); return response.json() })
+      .then((response) => response.json())
       .then((json) => {
         if (json && json.code && json.code === 'TIME_OUT') {
           reject(json);

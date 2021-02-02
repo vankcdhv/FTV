@@ -27,10 +27,10 @@ module.exports = {
     },
     addSubject: (subject) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO Subject SET ?';
-            dbcontext.query(query, [subject], (err, res) => {
+            let query = 'INSERT INTO Subject';
+            dbcontext.insert(query, subject, (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
+                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
                         module.exports.updateSubject(subject, subject.course)
                             .then(response => {
                                 resolve(response);
@@ -48,8 +48,12 @@ module.exports = {
     },
     updateSubject: (subject, course) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE Subject SET ? WHERE  course=?';
-            dbcontext.query(query, [subject, course], (err, res) => {
+            let query = 'UPDATE Subject SET';
+            let param = [{
+                key: 'course',
+                value: course
+            }];
+            dbcontext.update(query, subject, param, (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

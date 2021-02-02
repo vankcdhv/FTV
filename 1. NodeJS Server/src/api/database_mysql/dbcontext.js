@@ -7,31 +7,7 @@ const pool = mysql.createPool(config);
 
 const test = {
   query: (query, params, callback) => {
-    DBContext.getInstance().query(query, params, (err, rows) => {
-      if (!err) {
-        callback(null, rows);
-      } else {
-        if (err.code = 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR' || err.code == 'PROTOCOL_CONNECTION_LOST') {
-
-        }
-        callback(err, null);
-      }
-    });
-  },
-  insert: (query, params, callback) => {
-    DBContext.getInstance().insert(query, params, (err, rows) => {
-      if (!err) {
-        callback(null, rows);
-      } else {
-        if (err.code = 'PROTOCOL_ENQUEUE_AFTER_FATAL_ERROR' || err.code == 'PROTOCOL_CONNECTION_LOST') {
-
-        }
-        callback(err, null);
-      }
-    });
-  },
-  update: (query, entity, params, callback) => {
-    DBContext.getInstance().update(query, entity, params, (err, rows) => {
+    DBContext.getInstance().connection.query(query, params, (err, rows) => {
       if (!err) {
         callback(null, rows);
       } else {

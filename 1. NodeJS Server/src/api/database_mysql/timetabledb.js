@@ -39,10 +39,10 @@ module.exports = {
     },
     addTimeTable: (timeTable) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO TimeTable';
-            dbcontext.insert(query, timeTable, (err, res) => {
+            let query = 'INSERT INTO TimeTable SET ?';
+            dbcontext.query(query, [timeTable], (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
                         // console.log(timeTable.date + ' - ' + timeTable.dayInWeek + ' - ' + timeTable.slot,'existed!');
                         module.exports.updateTimeTable(timeTable, timeTable.studentID, timeTable.dayInWeek, timeTable.slot)
                             .then(response => {
@@ -64,21 +64,7 @@ module.exports = {
 
         return new Promise((resolve, reject) => {
             let query = 'UPDATE TimeTable SET ? WHERE studentID =? AND dayInWeek=? AND slot=?';
-            let param = [
-                {
-                    key: 'studentID',
-                    value: studentID
-                },
-                {
-                    key: 'dayInWeek',
-                    value: dayInWeek
-                },
-                {
-                    key: 'slot',
-                    value: slot
-                }
-            ];
-            dbcontext.update(query, timeTable, param, (err, res) => {
+            dbcontext.query(query, [timeTable, studentID, dayInWeek, slot], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

@@ -27,10 +27,10 @@ module.exports = {
     },
     addParent: (parent) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO parent SET ?';
-            dbcontext.query(query, [parent], (err, res) => {
+            let query = 'INSERT INTO parent';
+            dbcontext.insert(query, parent, (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
+                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
                         module.exports.updateParent(parent, parent.studentid)
                             .then(response => {
                                 resolve(response);
@@ -48,8 +48,12 @@ module.exports = {
     },
     updateParent: (parent, id) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE parent SET ? WHERE studentid = ?';
-            dbcontext.query(query, [parent, id], (err, res) => {
+            let query = 'UPDATE parent';
+            let param = [{
+                key: 'studentid',
+                value: id
+            }];
+            dbcontext.update(query, parent, param, (err, res) => {
                 if (err) {
                     reject(err);
                 } else {

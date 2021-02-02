@@ -1,9 +1,9 @@
 const dbcontext = require('./dbcontext');
 
 module.exports = {
-    getAllProfile: () => {
+    getAllStudent: () => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM Profile';
+            let query = 'SELECT * FROM Student';
             dbcontext.query(query, null, (err, res) => {
                 if (err) {
                     reject(err);
@@ -13,9 +13,9 @@ module.exports = {
             })
         });
     },
-    getProfileByID: (id) => {
+    getStudentByID: (id) => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM Profile WHERE studentid = ?';
+            let query = 'SELECT * FROM Student WHERE id = ?';
             dbcontext.query(query, [id], (err, res) => {
                 if (err) {
                     reject(err);
@@ -25,37 +25,24 @@ module.exports = {
             })
         });
     },
-    addProfile: (Profile) => {
+    addStudent: (student) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO Profile';
-            dbcontext.insert(query, Profile, (err, res) => {
+            let query = 'INSERT INTO Student SET ?';
+            dbcontext.query(query, [student], (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
-                        module.exports.updateProfile(Profile, Profile.studentid)
-                            .then(response => {
-                                resolve(response);
-                            })
-                            .catch(reason => {
-                                reject(reason);
-                            });
-                    } else
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState === '23000') {} else {
                         reject(err);
+                    }
                 } else {
                     resolve(res)
                 }
             })
         })
     },
-    updateProfile: (Profile, id) => {
+    updateStudent: (student, id) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE Profile';
-            let param = [
-                {
-                    key: 'studentid',
-                    value: id
-                }
-            ]
-            dbcontext.update(query, Profile, param, (err, res) => {
+            let query = 'UPDATE Student SET ? WHERE id = ?';
+            dbcontext.query(query, [student, id], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -64,9 +51,9 @@ module.exports = {
             })
         });
     },
-    removeProfile: (id) => {
+    removeStudent: (id) => {
         return new Promise((resolve, reject) => {
-            let query = 'DELETE FROM Profile WHERE studentid = ?';
+            let query = 'DELETE FROM Student WHERE id = ?';
             dbcontext.query(query, [id], (err, res) => {
                 if (err) {
                     reject(err);

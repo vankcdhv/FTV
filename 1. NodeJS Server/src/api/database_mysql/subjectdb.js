@@ -1,10 +1,9 @@
 const dbcontext = require('./dbcontext');
-const studentDB = require('./studendb');
-const chatbot = require('../chatbot/logic')
+
 module.exports = {
-    getAllOTP: () => {
+    getAllSubject: () => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM OTP';
+            let query = 'SELECT * FROM Subject';
             dbcontext.query(query, null, (err, res) => {
                 if (err) {
                     reject(err);
@@ -14,10 +13,10 @@ module.exports = {
             })
         });
     },
-    getOTPByStudentID: (studentID) => {
+    getSubjectByID: (subjectID) => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM OTP WHERE studentID = ?';
-            dbcontext.query(query, [studentID], (err, res) => {
+            let query = 'SELECT * FROM Subject WHERE course = ?';
+            dbcontext.query(query, [subjectID], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -26,38 +25,31 @@ module.exports = {
             })
         });
     },
-    addOTP: (OTP) => {
+    addSubject: (subject) => {
         return new Promise((resolve, reject) => {
-            let query = 'INSERT INTO OTP';
-            dbcontext.insert(query, OTP, (err, res) => {
+            let query = 'INSERT INTO Subject SET ?';
+            dbcontext.query(query, [subject], (err, res) => {
                 if (err) {
-                    if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
-                        module.exports.updateOTP(OTP, OTP.studentid)
+                    if (err.code == 'ER_DUP_ENTRY' || err.sqlState==='23000') {
+                        module.exports.updateSubject(subject, subject.course)
                             .then(response => {
                                 resolve(response);
                             })
                             .catch(reason => {
                                 reject(reason);
                             })
-                    } else {
+                    } else
                         reject(err);
-                    }
                 } else {
                     resolve(res)
                 }
             })
         })
     },
-    updateOTP: (OTP, studentID) => {
+    updateSubject: (subject, course) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE OTP';
-            let param = [
-                {
-                    key: 'studentID',
-                    value: studentID
-                }
-            ]
-            dbcontext.update(query, OTP, param, (err, res) => {
+            let query = 'UPDATE Subject SET ? WHERE  course=?';
+            dbcontext.query(query, [subject, course], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -66,10 +58,10 @@ module.exports = {
             })
         });
     },
-    removeOTP: (studentID, code) => {
+    removeSubject: (subjectID) => {
         return new Promise((resolve, reject) => {
-            let query = 'DELETE FROM OTP WHERE studentID =? AND otp = ?';
-            dbcontext.query(query, [studentID, code], (err, res) => {
+            let query = 'DELETE FROM Subject WHERE course=?';
+            dbcontext.query(query, [subjectID], (err, res) => {
                 if (err) {
                     reject(err);
                 } else {
