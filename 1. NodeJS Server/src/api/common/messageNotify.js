@@ -204,7 +204,8 @@ module.exports = {
             while (true) {
                 let currentTime = new Date().toLocaleString().replace(",", "").replace(/:.. /, " ");
                 currentTime = currentTime.split(" ")[1] + " " + currentTime.split(" ")[2];
-                if (currentTime === "11:30 PM") {
+                console.log(currentTime);
+                if (currentTime === "3:05 PM") {
                     let result = [];
                     studentDB.getAllStudent()
                         .then((listStudent) => {

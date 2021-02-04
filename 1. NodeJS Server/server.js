@@ -39,5 +39,5 @@ const {
   console.log("RESTful API server started on: " + port);
   console.log('Start...');
   keepSession.keepSession();
-  //messageNotify.notify();
+  messageNotify.notify();
 })();
