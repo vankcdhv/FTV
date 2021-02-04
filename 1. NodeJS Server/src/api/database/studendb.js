@@ -41,7 +41,7 @@ module.exports = {
     },
     updateStudent: (student, id) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE Student ';
+            let query = 'UPDATE Student';
             let param = [
                 {
                     key: 'id',

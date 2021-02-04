@@ -33,7 +33,7 @@ module.exports = {
             dbcontext.insert(query, mark, (err, res) => {
                 if (err) {
                     if (err.code == 'ER_DUP_ENTRY' || err.number == 2627) {
-                        module.exports.updateMark(mark, mark.studentid, mark.subjectid)
+                        module.exports.updateMark(mark, mark.studentID, mark.subjectid)
                             .then(response => {
                                 resolve(response);
                             })

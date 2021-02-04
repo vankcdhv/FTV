@@ -63,7 +63,7 @@ module.exports = {
     updateTimeTable: (timeTable, studentID, dayInWeek, slot) => {
 
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE TimeTable SET ? WHERE studentID =? AND dayInWeek=? AND slot=?';
+            let query = 'UPDATE TimeTable';
             let param = [
                 {
                     key: 'studentID',

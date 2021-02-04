@@ -46,7 +46,7 @@ class Logic {
     for (let i = 0; i < timeTable.length; i++) {
       for (let j = 0; j < timeTable[i].length; j++) {
         let item = timeTable[i][j];
-        item["studentid"] = studentID;
+        item["studentID"] = studentID;
         timetabledb.addTimeTable(item)
           .then((res) => {})
           .catch((reason) => console.log(reason));

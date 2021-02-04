@@ -48,7 +48,7 @@ module.exports = {
     },
     updateSubject: (subject, course) => {
         return new Promise((resolve, reject) => {
-            let query = 'UPDATE Subject SET';
+            let query = 'UPDATE Subject';
             let param = [{
                 key: 'course',
                 value: course
