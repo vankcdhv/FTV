@@ -63,7 +63,7 @@ module.exports = {
                                 json: (timetable) => {
                                     let currentDay = new Date().getDay();
                                     currentDay = currentDay === 0 ? 7 : currentDay;
-                                    currentDay += 2;
+                                    currentDay += 1;
                                     currentDay = currentDay === 9 ? 2 : currentDay;
                                     let listSlot = [];
                                     for (let i = 0; i < timetable.length; i++) {
