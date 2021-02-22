@@ -2,7 +2,7 @@
 
 const mssql = require('mssql');
 const config = {
-  server: '139.180.214.58',
+  server: '139.180.158.47',
   port: 1433,
   user: 'sa',
   password: '@Codera3k48',
@@ -33,13 +33,13 @@ const DBContext = (() => {
               query = query.replace('?', '@param' + i)
             }
           }
-          console.log(query);
+          //console.log(query);
           sqlRequest.query(query, (err, res) => {
             if (err) {
               callback(err, null);
               console.log(err)
             } else {
-              console.table(res.recordset);
+              //console.table(res.recordset);
               callback(null, res.recordset);
             }
             //mssql.close();
@@ -63,7 +63,7 @@ const DBContext = (() => {
             inputs.push('@' + k);
           }
           let query = querySTR + ' (' + cols.toString() + ') values (' + inputs.toString() + ')';
-          console.log(query);
+          //console.log(query);
           sqlRequest.query(query, (err, res) => {
             if (err) {
               callback(err, null)
@@ -87,8 +87,8 @@ const DBContext = (() => {
           let values = [];
           let paramList = [];
           let inputs = [];
-          console.log('update', entity);
-          console.log('param', params);
+          //console.log('update', entity);
+          //console.log('param', params);
           for (let k in entity) {
             sqlRequest.input(k, entity[k]);
             cols.push(k);
@@ -118,7 +118,7 @@ const DBContext = (() => {
               }
             }
           }
-          console.log(query);
+          //console.log(query);
           sqlRequest.query(query, (err, res) => {
             if (err) {
               callback(err, null)

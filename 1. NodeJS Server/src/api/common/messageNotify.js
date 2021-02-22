@@ -63,7 +63,7 @@ module.exports = {
                                 json: (timetable) => {
                                     let currentDay = new Date().getDay();
                                     currentDay = currentDay === 0 ? 7 : currentDay;
-                                    currentDay += 1;
+                                    currentDay += 2;
                                     currentDay = currentDay === 9 ? 2 : currentDay;
                                     let listSlot = [];
                                     for (let i = 0; i < timetable.length; i++) {
@@ -205,7 +205,7 @@ module.exports = {
                 let currentTime = new Date().toLocaleString().replace(",", "").replace(/:.. /, " ");
                 currentTime = currentTime.split(" ")[1] + " " + currentTime.split(" ")[2];
                 console.log(currentTime);
-                if (currentTime === "12:00 AM") {
+                if (currentTime === "11:30 PM") {
                     let result = [];
                     studentDB.getAllStudent()
                         .then((listStudent) => {

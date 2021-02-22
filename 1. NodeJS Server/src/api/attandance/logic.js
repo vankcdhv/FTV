@@ -85,7 +85,7 @@ module.exports = {
             let item = report[i];
             item['studentid'] = studentID;
             item['course'] = courseID;
-            console.log(item);
+            //console.log(item);
             attendancedb.addAttendance(item, haveNotify)
                 .then(response => {
                     if (response.code == 'ABSENT') {
